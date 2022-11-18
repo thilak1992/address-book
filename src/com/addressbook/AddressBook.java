@@ -1,57 +1,56 @@
-package com.adressbook;
+package com.addressbook;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
-public class AddressBookMain {
-    public static Person input(Scanner scanner) {
+public class AddressBook {
+    ArrayList<Person> addressbook = new ArrayList<Person>();
 
-        System.out.println("Please provide first name");
-        String firstName = scanner.next();
-
-        System.out.println("Please provide Last name");
-        String lastName = scanner.next();
-
-        System.out.println("Please provide address");
-        String address = scanner.next();
-
-        System.out.println("Please provide city");
-        String city = scanner.next();
-
-        System.out.println("Please provide state");
-        String state = scanner.next();
-
-        System.out.println("Please provide zip");
-        int zip = scanner.nextInt();
-
-        System.out.println("Please provide phone number");
-        String phoneNumber = scanner.next();
-
-        Person person = new Person(firstName, lastName, address, city, state, zip, phoneNumber);
-
-        return person;
-    }
-
-
-    public static void main(String[] args) {
-
-        AddressBook addressBook = new AddressBook();
-        Scanner scanner = new Scanner(System.in);
-/*
-Contacts added using Constructor and print it using print function of addressbook
- */
-        Person person = new Person("shalesh", "dutt", "gurgaon", "Gurgaon", "haryana", 129446, "947803666");
-        addressBook.addContact(person);
-        System.out.println("Before adding Contacts are");
-        addressBook.printAddressBook();
-/*
-Adding new Contact using addContact method and by taking input from the user using Scanner and calling input method
-and printing it
- */
-        System.out.println("Please enter details of new contacts you want to add");
-        Person person1 = input(scanner);
-        addressBook.addContact(person1);
-        System.out.println("After adding new contacts are");
-        addressBook.printAddressBook();
+    public ArrayList<Person> addContact(Person person) {
+        this.addressbook.add(person);
+        return addressbook;
 
     }
+
+    public void editContact(Person editedContact) {
+        /*
+        Searching the person in the addressbook using for eachloop if found then change its details
+        with the new information provided
+         */
+
+        for (Person person : this.addressbook) {
+            /*
+            if person first name matches with the name provided in the editedContact then change its details
+            to the new information provided in the editedContact.
+             */
+
+            if (person.getFirstName().equals(editedContact.getFirstName())) {
+                person.setLastName(editedContact.getLastName());
+                person.setAddress(editedContact.getAddress());
+                person.setCity(editedContact.getCity());
+                person.setState(editedContact.getState());
+                person.setPhoneNumber(editedContact.getPhoneNumber());
+                person.setZip(editedContact.getZip());
+                return;
+
+            }
+        }
+        System.out.println("Name not found in the list");
+
+    }
+
+    public void printAddressBook() {
+        for (Person person : this.addressbook) {
+
+            System.out.println("-----------------------------------------------------");
+            System.out.println("First name = " + person.getFirstName());
+            System.out.println("last name = " + person.getLastName());
+            System.out.println("address = " + person.getAddress());
+            System.out.println("city = " + person.getCity());
+            System.out.println("state = " + person.getState());
+            System.out.println("zip = " + person.getZip());
+            System.out.println("phone number = " + person.getPhoneNumber());
+            System.out.println("-----------------------------------------------------");
+        }
+    }
+
 }
